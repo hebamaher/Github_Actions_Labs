@@ -6,4 +6,12 @@ COPY app ./app
 
 EXPOSE 8000
 
+RUN groupadd -r appgroup && useradd -r -g appgroup appuser
+
+# 2. Set the ownership of your application files to the new user
+COPY --chown=appuser:appgroup . /app
+
+# 3. Switch to the non-root user
+USER appuser
+
 CMD ["python", "app/app.py"]
