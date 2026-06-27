@@ -27,11 +27,11 @@ jobs:
       - name: Set up Python
         # Prepare Python so the workflow can run the tests first.
         uses: actions/setup-python@v6
-        # with:
-          # python-version: "3.12"
-        strategy:
-          matrix:
-            python-version: ['3.11', '3.12']
+        with:
+          python-version: ${{ secrets.PYTHON_SECRET }}
+        # strategy:
+        #   matrix:
+        #     python-version: ['3.11', '3.12']
 
       - name: Run tests
         # Build only after the verification step passes.
