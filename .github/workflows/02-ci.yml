@@ -25,8 +25,11 @@ jobs:
       - name: Set up Python
         # Prepare Python on the runner. This does not change the student laptop.
         uses: actions/setup-python@v6
-        with:
-          python-version: ${{ secrets.PYTHON_SECRET }}
+        # with:
+        #   python-version: ${{ secrets.PYTHON_SECRET }}
+        strategy:
+          matrix:
+            python-version: ['3.11', '3.12']
 
       - name: Run tests
         # This is the key verification step in the CI workflow.
