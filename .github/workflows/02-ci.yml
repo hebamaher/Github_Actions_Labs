@@ -36,22 +36,24 @@ jobs:
         # This is the key verification step in the CI workflow.
         run: python -m unittest discover -s tests -v
 
-      - name: Run Trivy vulnerability scan on Docker image
-        # Scan the Docker image for vulnerabilities.
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ env.IMAGE_NAME }}:${{ steps.image-tag.outputs.image_tag }}
-          format: 'sarif'
-          output: 'trivy-image-results.sarif'
-
-      - name: Run Trivy vulnerability scan on filesystem
-        # Scan the filesystem for vulnerabilities.
+      - name: Run Trivy vulnerability scanner on Filesystem
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
           scan-ref: '.'
-          format: 'sarif'
-          output: 'trivy-fs-results.sarif'
+          format: 'table'
+          exit-code: '1' # Fails the build if vulnerabilities are found
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'
+
+      - name: Run Trivy vulnerability scanner on Misconfigurations (Dockerfile)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'config'
+          scan-ref: '.'
+          format: 'table'
+          exit-code: '1'
+          severity: 'CRITICAL,HIGH'
 
       - name: Upload Trivy results to GitHub Security tab
         # Upload scan results for visibility in the security tab.
