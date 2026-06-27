@@ -13,7 +13,7 @@ on:
     branches:
       - main
     paths:
-    - ".github/workflows/01-hello.yml"
+      - ".github/workflows/01-hello.yml"
 
 jobs:
   on-merge:
@@ -23,9 +23,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-       - name: Say hello
+      #  - name: Say hello
       #   # This single step is enough to show a full workflow run.
-         run: echo "Hello from GitHub Actions and from Heba"
+      - run: echo "Hello from GitHub Actions and from Heba"
       # - name: Run Post-Merge Tasks
       #     run: echo "Pull request #${{ github.event.pull_request.number }} has been merged!"
       #       # Add your custom commands here
