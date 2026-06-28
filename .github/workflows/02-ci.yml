@@ -33,7 +33,7 @@ jobs:
       
 
       - name: Run tests
-        # This is the key verification step in the CI workflow.
+        # This is the key verification step in the CI workflow..
         run: python -m unittest discover -s tests -v
 
       - name: Run Trivy vulnerability scanner on Filesystem
