@@ -6,6 +6,8 @@ on:
   workflow_run:
     # Listen for the build workflow by name.
     workflows: ["03 Build Artifact Workflow"]
+    branches:
+      - add-build-artifact                       # Only trigger if the build workflow ran on 'add-build-artifact' branch
     # Start when the build workflow has completed.
     types: [completed]
 
